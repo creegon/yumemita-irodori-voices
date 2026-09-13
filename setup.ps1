@@ -6,7 +6,24 @@ $voiceRoot = $PSScriptRoot
 $voiceEngine = Join-Path $voiceRoot '.runtime/Irodori-TTS'
 $voiceCommit = 'eaf74d6a19138f743acb5b71a445fd25a57db987'
 if (-not (Get-Command git -ErrorAction SilentlyContinue)) { throw 'Install Git first: https://git-scm.com/downloads/win' }
-if (-not (Get-Command uv -ErrorAction SilentlyContinue)) { throw 'Install uv first: https://docs.astral.sh/uv/getting-started/installation/' }
+$voiceUv = Join-Path $voiceRoot '.tools/uv/uv.exe'
+if (-not (Test-Path -LiteralPath $voiceUv)) {
+    $voiceInstalledUv = Get-Command uv -ErrorAction SilentlyContinue
+    if ($voiceInstalledUv) {
+        $voiceUv = $voiceInstalledUv.Source
+    } else {
+        Write-Host 'Installing uv from its official source into this folder...'
+        $voiceDownload = @{ Uri = 'https://astral.sh/uv/install.ps1'; UserAgent = 'yumemita-voice-setup' }
+        if ($env:HTTPS_PROXY) { $voiceDownload.Proxy = $env:HTTPS_PROXY }
+        $voiceInstaller = Invoke-RestMethod @voiceDownload
+        $voicePreviousUvDir = $env:UV_UNMANAGED_INSTALL
+        try {
+            $env:UV_UNMANAGED_INSTALL = Split-Path -Parent $voiceUv
+            & ([scriptblock]::Create($voiceInstaller))
+        } finally { $env:UV_UNMANAGED_INSTALL = $voicePreviousUvDir }
+        if (-not (Test-Path -LiteralPath $voiceUv)) { throw 'uv install failed. Run SETUP_YUMEMITA.bat to retry.' }
+    }
+}
 if (-not (Test-Path -LiteralPath (Join-Path $voiceEngine '.git'))) {
     New-Item -ItemType Directory -Force -Path $voiceEngine | Out-Null
     & git -C $voiceEngine init
@@ -23,7 +40,7 @@ if ($voiceHead -ne $voiceCommit) {
 }
 Push-Location $voiceEngine
 try {
-    & uv sync --frozen --python 3.10 --extra $Backend
+    & $voiceUv sync --frozen --python 3.10 --extra $Backend
     if ($LASTEXITCODE) { throw 'Dependency install failed. Rerun setup.ps1 to resume.' }
 } finally { Pop-Location }
 $voicePython = Join-Path $voiceEngine '.venv/Scripts/python.exe'

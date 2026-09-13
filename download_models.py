@@ -3,6 +3,7 @@ from pathlib import Path
 import os
 import json
 ROOT = Path(__file__).resolve().parent
+os.environ['HF_ENDPOINT'] = 'https://huggingface.co'
 os.environ['HF_HOME'] = str(ROOT / 'models')
 os.environ['HF_HUB_CACHE'] = str(ROOT / 'models/hub')
 os.environ['HUGGINGFACE_HUB_CACHE'] = str(ROOT / 'models/hub')

@@ -1,41 +1,60 @@
-# 梦限大八人语音包 · 使用指南
+# 梦限大八人语音合成 · 从零安装指南
 
-这份包包含阿拉蕾、野乃花、律、千石ユノ、藤都子、薇欧拉、蓓儿、波波。沿用当前项目选定的声线版本，没有重新训练。八个文件是 Speaker Inversion 声线文件，必须配合 **Irodori-TTS-600M-v3-VoiceDesign** 使用；不是八套完整大模型，也不需要 LoRA。
+给第一次使用 Irodori 的朋友：**有 Git 就可以开始，不需要任何旧整合包或以前的项目文件。** 安装程序会准备 Python、依赖和通用模型，八人的声线已经放在仓库里。
 
-[八人声线文件](app/voices_yumemita) · [当前参数与版本](app/yumemita_voice_manifest.json)
+包含阿拉蕾、野乃花、律、千石ユノ、藤都子、薇欧拉、蓓儿、波波。[八人声线文件](app/voices_yumemita) · [详细参数](app/yumemita_voice_manifest.json)
 
-## 方式一：从 Git 安装（Windows）
+## 电脑需要什么
 
-先安装 [Git](https://git-scm.com/downloads/win) 和 [uv](https://docs.astral.sh/uv/getting-started/installation/)。然后在 PowerShell 执行：
+- Windows 10 / 11，64 位；已安装 Git。
+- 推荐 NVIDIA 显卡，并安装兼容 CUDA 12.8 的驱动。不需要另装 CUDA Toolkit。
+- 预留至少 20 GB 硬盘空间。第一次安装需要联网，下载约 3 GB 通用模型和数 GB 运行依赖；以后合成可以离线。
+
+目前实际验证设备为 RTX 4090，尚未验证小显存显卡和 AMD 加速。没有 NVIDIA 显卡也有 CPU 安装选项，见下方常见问题，但速度会慢很多。
+
+## 第一次用：下载、安装、启动
+
+### 1. 下载这个仓库
+
+在想保存程序的位置打开 PowerShell，执行：
 
 ```powershell
 git clone https://github.com/creegon/yumemita-irodori-voices.git
-cd yumemita-irodori-voices
-powershell -ExecutionPolicy Bypass -File .\setup.ps1
-.\START_YUMEMITA.bat
 ```
 
-`-ExecutionPolicy Bypass` 仅用于这次启动脚本，不修改系统的执行策略。
+会得到一个 `yumemita-irodori-voices` 文件夹。建议放在简短、可写的位置，例如 `D:\VoiceTools`。
 
-安装脚本复用上游官方 `uv sync --extra cu128` 路线，锁定 Irodori 源码 commit `eaf74d6a19138f743acb5b71a445fd25a57db987`、其 `uv.lock` 与 Python 3.10，不跟随上游 main 自动升级。首次安装需要从 GitHub、PyPI / PyTorch 和 Hugging Face 下载数 GB 内容；已缓存的内容会复用，中断后重新执行同一个脚本即可继续。完成安装后的合成入口固定离线运行。
+### 2. 双击 SETUP_YUMEMITA.bat，等待安装完成
 
-仅 CPU 安装可改为 `powershell -ExecutionPolicy Bypass -File .\setup.ps1 -Backend cpu`，速度较慢，本仓库没有做 CPU 耗时测试。NVIDIA 路线需要兼容 CUDA 12.8 的驱动。网络受限时，按自己电脑的代理配置运行 Git、uv 和 Hugging Face；脚本不写死作者的代理端口。
+打开刚下载的文件夹，双击 **SETUP_YUMEMITA.bat**。它会自动：
 
-**八个声线文件已经在 Git 仓库里，无需 Git LFS。** 通用基座、依赖和生成结果放在本地忽略目录，不会随普通提交上传。
+1. 检查 Git；没有 uv 时从 [uv 官方安装入口](https://docs.astral.sh/uv/getting-started/installation/)下载到本文件夹。
+2. 下载固定版本的 Irodori 源码，准备 Python 3.10 和运行依赖。
+3. 下载对应的通用语音模型、解码器和分词器。
 
-## 方式二：复用之前的魔裁离线整合包
+**不用自己安装 Python，不用自己找基座文件，也不用配置训练环境。** 第一次下载可能较慢，保留窗口并等待；看到 `Setup complete` 就表示安装完成。下载中断后重新双击同一个安装文件，已经完成的部分会复用。
 
-下载或 clone 本仓库，将本仓库的 `app` 文件夹和 `START_YUMEMITA.bat` 复制到旧 **Irodori-Voice-Pack** 根目录，与旧包 `app`、`models` 合并。然后双击新入口，不必运行 `setup.ps1`，也不必下载基座。八人声线和新界面使用独立文件名，原魔裁的 `START.bat` 仍照常使用。
+也可以在 PowerShell 中进入仓库后运行：
 
-这八人是纯 Speaker Inversion；不要继续给她们挂魔裁 LoRA，也不要换成 v4 或 500M 基座。
+```powershell
+.\SETUP_YUMEMITA.bat
+```
 
-## 三步开始
+### 3. 双击 START_YUMEMITA.bat
 
-1. 将仓库或整合包放到可写的短路径，例如 `D:\YumemitaTTS`。不要在压缩软件里直接启动。
-2. 双击 **START_YUMEMITA.bat**。保留命令行窗口，浏览器会打开 `http://127.0.0.1:7861`；没自动打开就手动输入这个地址。
-3. 音色来源选“预设角色”，选人，填写日语台词，点“生成语音”。第一次生成要加载模型；具体速度取决于电脑。
+安装完成后双击 **START_YUMEMITA.bat**。浏览器会打开 `http://127.0.0.1:7861`；如果没有自动打开，手动把这个地址填进浏览器。启动窗口需要一直保留。
 
-默认安装路线是 Windows 64 位、PyTorch 2.10.0 + CUDA 12.8。优先使用 NVIDIA 显卡及兼容的新驱动；没有可用 CUDA 时程序会选 CPU，速度会明显变慢。未验证 AMD GPU 加速，也未给小显存显卡做兼容承诺。建议预留至少 20 GB 安装空间；Git 仓库很小，大文件在首次安装时下载。包内固定为 fp32 精度，不会为了省显存自动切换成别的精度。
+之后每次使用只需双击启动文件，不用重新安装。八个声线都已经配置好，无需手动选模型文件。
+
+### 4. 先生成一句试试
+
+网页中音色来源选“预设角色”，再选一个人。台词框粘贴：
+
+> おはよう。今日も一緒に頑張ろうね。
+
+第一次先把演技指导和随机种子留空，高级设置保持默认，点击“生成语音”。首次生成需要加载模型。完成后可在网页试听、下载，文件也会自动保存到本文件夹的 **outputs_yumemita** 目录。
+
+关闭启动时的命令行窗口即可退出程序。
 
 ## 台词与表演怎么填
 
@@ -80,14 +99,19 @@ powershell -ExecutionPolicy Bypass -File .\setup.ps1
 
 ## 本次运行验证
 
-2026-09-13 在 Windows / RTX 4090 上，实际运行 `setup.ps1` 拉取固定版本源码并新建 Python 3.10.20 环境，安装锁定依赖；基座文件复用本地缓存。随后通过 `START_YUMEMITA.bat` 启动网页服务，并调用网页的生成接口，八个角色各生成一条日语测试句，8/8 成功保存 WAV 与 seed / 参数记录。蓓儿实际使用 speaker CFG 3，其余为 5，均为 fp32、40 steps。
+2026-09-13，在 Windows / RTX 4090 上验证了两件事：
 
-这验证安装与生成调用，不等于听感验收；本次没有进行 ASR 或模型听音评审。没有做其他硬件或完整冷缓存下载的测试。
+- 八个角色都通过网页生成接口各输出一条 WAV，并保存 seed 和参数记录；蓓儿实际使用 speaker CFG 3，其余为 5，均为 fp32、40 steps。
+- 新建一个没有旧项目文件、没有模型缓存的目录，并从测试进程的 PATH 隐藏已安装的 uv 和 Python。新的安装入口自行安装 uv、创建 Python 环境、安装依赖，从 Hugging Face 官方完整下载通用模型、解码器和分词器；随后通过启动入口打开服务，以蓓儿默认参数、空演技和随机 seed 成功输出 WAV。
+
+新目录没有引用旧整合包或它的模型目录；uv 自身允许复用正常的 Python / 包下载缓存。这验证从零准备项目与实际生成调用，不等于在另一台物理电脑上的测试，也不等于听感验收；未进行 ASR 或模型听音评审。
 
 ## 常见启动问题
 
-- **提示 Run setup.ps1 first**：Git 安装尚未完成；运行上面的安装命令。使用旧包时，检查 `START_YUMEMITA.bat` 旁边是否有 `app/python-runtime/python.exe` 和 `models`。
-- **缺少离线模型 / LocalEntryNotFoundError**：Git 方式重新运行 `setup.ps1` 补下载；旧包方式检查是否完整保留 `models/hub`。合成入口固定离线，不会自动补下载。
+- **只有 CPU / 没有 NVIDIA 显卡**：首次安装时在 PowerShell 运行 `.\SETUP_YUMEMITA.bat -Backend cpu`，之后仍用同一个启动文件。这条路线未做速度测试。
+- **下载很慢或失败**：需要能访问 GitHub、PyPI / PyTorch 和 Hugging Face。先检查自己的网络，再重跑安装。如果使用代理，在同一个 PowerShell 窗口配置自己的 `HTTPS_PROXY` / `HTTP_PROXY` 后运行安装文件；本仓库不预设他人电脑的代理地址。
+- **提示 First run SETUP_YUMEMITA.bat**：先双击 `SETUP_YUMEMITA.bat` 完成安装。
+- **缺少离线模型 / LocalEntryNotFoundError**：重新双击 `SETUP_YUMEMITA.bat` 补齐下载。合成入口固定离线，不会自动补下载。
 - **端口 7861 被占用**：关闭已运行的这一套程序；也可以在终端运行 `START_YUMEMITA.bat --server-port 7862`，然后打开对应地址。
 - **CUDA out of memory**：关闭其他占显存的程序、一次只生成一条并缩短文本；这不是训练失败。不能保证小显存设备运行当前 fp32 配置。
 - **生成较慢**：看日志里的 device 是否为 cpu。GPU 不可用时先核对驱动与硬件；不要反复开多个窗口生成。
@@ -96,8 +120,8 @@ powershell -ExecutionPolicy Bypass -File .\setup.ps1
 
 ## 来源与范围
 
-界面及离线运行方式参考先前的魔裁 Irodori-Voice-Pack；Git 安装复用固定版本上游源码和依赖锁；本次适配八人列表、纯 Speaker Inversion 路线、当前默认参数、独立输出与 seed 记录。没有加入训练集、原番切片、旧魔裁角色或新的模型训练。
+本项目使用 Irodori-TTS v3 VoiceDesign。安装锁定公开上游 commit `eaf74d6a19138f743acb5b71a445fd25a57db987` 及其依赖锁，不跟随 main 自动升级。八份声线为现有训练结果，本次没有重新训练。界面与组件的来源记录在 [THIRD_PARTY.md](THIRD_PARTY.md)，使用者无需取得那些历史项目。
 
-上游：[Irodori-TTS](https://github.com/Aratako/Irodori-TTS)；[v3 VoiceDesign 基座](https://huggingface.co/Aratako/Irodori-TTS-600M-v3-VoiceDesign)；[解码器](https://huggingface.co/Aratako/Semantic-DACVAE-Japanese-32dim)。上游源码许可随 `.runtime/Irodori-TTS/LICENSE` 或旧包 `app/LICENSE` 保留；第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。这里不额外授予角色、素材或声音的商业使用权。
+上游：[Irodori-TTS](https://github.com/Aratako/Irodori-TTS)；[v3 VoiceDesign 基座](https://huggingface.co/Aratako/Irodori-TTS-600M-v3-VoiceDesign)；[解码器](https://huggingface.co/Aratako/Semantic-DACVAE-Japanese-32dim)。上游源码许可随 `.runtime/Irodori-TTS/LICENSE` 保留；第三方说明见 [THIRD_PARTY.md](THIRD_PARTY.md)。这里不额外授予角色、素材或声音的商业使用权。
 
 包内 manifest 锁定实际基座 revision；`BUILD_INPUTS.json` 记录所用源码和工具链。当前指南服务于上述 Windows 本地组合，不将它描述为已在其他机器上验证。打包测试确认启动、声线加载与实际生成是否成功，不代表每一句声音都完美。
