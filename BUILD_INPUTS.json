@@ -1,0 +1,33 @@
+{
+  "legacy_template": "Irodori-Voice-Pack (local Mocai offline pack)",
+  "runtime": {
+    "python": "3.10.20",
+    "torch": "2.10.0+cu128",
+    "gradio": "6.6.0"
+  },
+  "source_files": {
+    "app/webui.py": "3f3b28b2ce7b04ba9106a1306b6b096de4ab1c6ff5fb856e123fc0b55bedd144",
+    "app/pyproject.toml": "cf821d06354db32d76ce948730d2e4569efe30911cb03fa4fd2350fe83a95adf",
+    "app/uv.lock": "e00dc294ec7e064d3cf43b09d465e1cce959c694520790f92d385718482a1ef8",
+    "app/python-runtime/python.exe": "bb0dffca26f5725ceb75e671c5e0da653017e28463b6b20f804ef9ed86c62030",
+    "app/irodori_tts/__init__.py": "e3098953dfd35afd2c07a5630ac6ffa80a3fd8fb1f64c6f18fb8f8f9d2d742fc",
+    "app/irodori_tts/codec.py": "a4edb4060ce9ea3c9c0564461dc4fffb2ab0d1fc80a51ef15b890dc30373a3c7",
+    "app/irodori_tts/config.py": "e0696e29ce2ca05c0d01e5a966bf979c217407f2d8cf44386d87af008b771ecb",
+    "app/irodori_tts/dataset.py": "1eae9b604fada78d017a4ca37b604e13094e1c516b3674705ac63af53a010377",
+    "app/irodori_tts/duration.py": "ec9e66e2129f5e1d9f6ff1093d9ae7cc8effab26cdca9371155e8c1b861eccf3",
+    "app/irodori_tts/gradio_emoji_palette.py": "856950bf962e246550d5ce5450a210f9efd06318df2216b792867c3febc9e87c",
+    "app/irodori_tts/inference_runtime.py": "b1b161ce80905d7533b42ac6ef33b4cb0a962f1daa705210453f7f8598a052e6",
+    "app/irodori_tts/lora.py": "aeeef005aa568d4b17962b76223accdf6ac3c32c1e552c74a9871ae66877f020",
+    "app/irodori_tts/model.py": "75d0af78df1938c97d61f8c31ed9e19733a08044f172fd296c1ef08cce8837bb",
+    "app/irodori_tts/optim.py": "67d174ce24b0d7619fc40149cf1c21069d27134d75e9711bbfeda9b894191b9a",
+    "app/irodori_tts/progress.py": "e86f1982136122ac61d605fbb71706df73792f72529f1a97b7761b5b3b2a08aa",
+    "app/irodori_tts/rf.py": "cc178ffd9f72e443d84a4a735bbf1767c5d0d9ee5c575da31c660e308bf1868e",
+    "app/irodori_tts/speaker_inversion.py": "33b7d4e69786ae98658a9e2e91c3b68a8197fd0f185d490f618da1f829b17ad4",
+    "app/irodori_tts/text_normalization.py": "a42b8e7b3af7603f1541f03055b2d64e7435a1af89d27cb8e8bb739ede76f7e2",
+    "app/irodori_tts/tokenizer.py": "d2d997585a9aa5bff28a5f362db984ce07dd689ccbb0cebe71123e08835a8691",
+    "app/irodori_tts/watermark.py": "6dba60882321cda02dc710ba247d2444e117bbd3d0f5734009227409d812fcc3"
+  },
+  "production_contract_sha256": "4670f0e7813fb2d5028e54fc3f4413acb79c694406e157961150a5228700bc1b",
+  "build_script_sha256": "82dc332e98124a1f95ebf519b3a165e0550f44e72910e0b57b5dd7f4d9b4ad19",
+  "voice_manifest_content_sha256": "7fa5a1f3b1a5d4ede70cb8199ce4ef9010d512afbab5ed5d09ef0ef09424de6b"
+}

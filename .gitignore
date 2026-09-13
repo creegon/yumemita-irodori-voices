@@ -1,0 +1,11 @@
+.runtime/
+models/
+outputs_yumemita/
+__pycache__/
+*.pyc
+*.log
+.venv/
+.env
+app/python-runtime/
+app/irodori_tts/
+app/vendor/

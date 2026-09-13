@@ -1,0 +1,165 @@
+{
+  "format_version": 1,
+  "model": "Aratako/Irodori-TTS-600M-v3-VoiceDesign",
+  "model_revision": "e863a3a93e652e09afeff3e84823a206a0a60314",
+  "codec": "Aratako/Semantic-DACVAE-Japanese-32dim",
+  "codec_revision": "47376ee24834d7a05a48ebabfe3cde29b3c5e214",
+  "tokenizer": "llm-jp/llm-jp-3-150m",
+  "tokenizer_revision": "b112feef602fff752e4dac4c30af6a2c2fa41c7a",
+  "method": "speaker inversion; frozen base; no LoRA",
+  "roles": {
+    "arale": {
+      "display_name": "阿拉蕾 / 仲町あられ",
+      "embedding": "voices_yumemita/arale.speaker.safetensors",
+      "sha256": "85a68ef7159acc5dc3cfb5734652a889fab7f1cd4558eabbcec0965841d0b081",
+      "step": 750,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 5.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "deliverables/embedding_expanded_20260905/models.json"
+    },
+    "nonoka": {
+      "display_name": "野乃花 / 宮永ののか",
+      "embedding": "voices_yumemita/nonoka.speaker.safetensors",
+      "sha256": "b001c18ab3483bd1f90d1089dc368865ab104e489c20ba6518733059b1235fe9",
+      "step": 250,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 5.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "deliverables/embedding_expanded_20260905/models.json"
+    },
+    "ritsu": {
+      "display_name": "律 / 峰月律",
+      "embedding": "voices_yumemita/ritsu.speaker.safetensors",
+      "sha256": "5a23982235dcab52e278a0551cd21cfbbd2e94ba849db3186f4536a376d85767",
+      "step": 250,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 5.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "deliverables/embedding_expanded_20260905/models.json"
+    },
+    "yuno": {
+      "display_name": "千石ユノ",
+      "embedding": "voices_yumemita/yuno.speaker.safetensors",
+      "sha256": "fcef91594642b9926dec0affa5de7fb0f730556036bb71ec9b46302fb48ac662",
+      "step": 3000,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 5.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "deliverables/embedding_expanded_20260905/models.json"
+    },
+    "miyako": {
+      "display_name": "藤都子",
+      "embedding": "voices_yumemita/miyako.speaker.safetensors",
+      "sha256": "1efa7da5f4ede74c86091c075bdec8162246689d7727d86c4f0038d3ba1ed447",
+      "step": 1000,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 5.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "voice_defaults.json"
+    },
+    "viola": {
+      "display_name": "薇欧拉 / ヴィオラ",
+      "embedding": "voices_yumemita/viola.speaker.safetensors",
+      "sha256": "e2454cde412a2c85f7ec9a1d677f819e52c6b608eb7d868a04b18108583e6f38",
+      "step": 250,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 5.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "voice_defaults.json"
+    },
+    "bell": {
+      "display_name": "蓓儿 / ベル",
+      "embedding": "voices_yumemita/bell.speaker.safetensors",
+      "sha256": "67bb40e52d18bad63bc1ee726f8eee73c3f7abb097a1e91e6ad846a408ffe607",
+      "step": 1000,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 3.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "deliverables/bell_popo_repair_20260912/models.json"
+    },
+    "popo": {
+      "display_name": "波波 / ポポ",
+      "embedding": "voices_yumemita/popo.speaker.safetensors",
+      "sha256": "403ae2e86305caf11a9363a634006471879742b75f3b8eaafb7305f0c56dd519",
+      "step": 1000,
+      "config": {
+        "model_precision": "fp32",
+        "codec_precision": "fp32",
+        "cfg_min_t": 0.5,
+        "num_steps": 40,
+        "cfg_scale_text": 3.0,
+        "cfg_scale_caption": 3.0,
+        "cfg_scale_speaker": 5.0,
+        "duration_scale": 1.0,
+        "trim_tail": false,
+        "lora_adapter": null
+      },
+      "source_manifest": "deliverables/bell_popo_repair_20260912/models.json"
+    }
+  },
+  "content_sha256": "7fa5a1f3b1a5d4ede70cb8199ce4ef9010d512afbab5ed5d09ef0ef09424de6b"
+}
